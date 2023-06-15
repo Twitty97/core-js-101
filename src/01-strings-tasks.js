@@ -156,8 +156,8 @@ function unbracketTag(str) {
  *   'Thunderstruck' => 'THUNDERSTRUCK'
  *  'abcdefghijklmnopqrstuvwxyz' => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
  */
-function convertToUpperCase(/* str */) {
-  throw new Error('Not implemented');
+function convertToUpperCase(str) {
+  return str.toUpperCase();
 }
 
 /**
@@ -175,8 +175,8 @@ function convertToUpperCase(/* str */) {
  *   ],
  *   'info@gmail.com' => ['info@gmail.com']
  */
-function extractEmails(/* str */) {
-  throw new Error('Not implemented');
+function extractEmails(str) {
+  return str.split(';');
 }
 
 /**
@@ -202,8 +202,38 @@ function extractEmails(/* str */) {
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(/* width, height */) {
-  throw new Error('Not implemented');
+function getRectangleString(width, height) {
+  const horizontalLine = '─';
+  const verticalLine = '│';
+  const topLeftCorner = '┌';
+  const topRightCorner = '┐';
+  const bottomLeftCorner = '└';
+  const bottomRightCorner = '┘';
+
+  let rectangle = '';
+
+  for (let row = 1; row <= height; row += 1) {
+    for (let col = 1; col <= width; col += 1) {
+      if (row === 1 && col === 1) {
+        rectangle += topLeftCorner;
+      } else if (row === 1 && col === width) {
+        rectangle += topRightCorner;
+      } else if (row === height && col === 1) {
+        rectangle += bottomLeftCorner;
+      } else if (row === height && col === width) {
+        rectangle += bottomRightCorner;
+      } else if (row === 1 || row === height) {
+        rectangle += horizontalLine;
+      } else if (col === 1 || col === width) {
+        rectangle += verticalLine;
+      } else {
+        rectangle += ' ';
+      }
+    }
+    rectangle += '\n';
+  }
+
+  return rectangle;
 }
 
 
