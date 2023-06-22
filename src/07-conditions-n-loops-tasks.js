@@ -353,8 +353,32 @@ function getDigitalRoot(num) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced(/* str */) {
-  throw new Error('Not implemented');
+function isBracketsBalanced(str) {
+  const stack = [];
+  const open = ['[', '(', '{', '<'];
+  const close = [']', ')', '}', '>'];
+  const pairs = {
+    ']': '[', ')': '(', '}': '{', '>': '<',
+  };
+
+  for (let i = 0; i < str.length; i += 1) {
+    const char = str[i];
+
+    if (open.includes(char)) {
+      stack.push(char);
+    } else if (close.includes(char)) {
+      if (stack.length === 0) {
+        return false;
+      }
+
+      const top = stack.pop();
+      if (pairs[char] !== top) {
+        return false;
+      }
+    }
+  }
+
+  return stack.length === 0;
 }
 
 
@@ -378,8 +402,8 @@ function isBracketsBalanced(/* str */) {
  *    365, 4  => '11231'
  *    365, 10 => '365'
  */
-function toNaryString(/* num, n */) {
-  throw new Error('Not implemented');
+function toNaryString(num, n) {
+  return num.toString(n);
 }
 
 
@@ -395,8 +419,24 @@ function toNaryString(/* num, n */) {
  *   ['/web/assets/style.css', '/.bin/mocha',  '/read.me'] => '/'
  *   ['/web/favicon.ico', '/web-scripts/dump', '/verbalizer/logs'] => '/'
  */
-function getCommonDirectoryPath(/* pathes */) {
-  throw new Error('Not implemented');
+function getCommonDirectoryPath(pathes) {
+  const initial = pathes[0].split('/');
+  let commonDir = '';
+
+  for (let i = 0; i < initial.length; i += 1) {
+    const directory = initial[i];
+
+    for (let j = 1; j < pathes.length; j += 1) {
+      const path = pathes[j].split('/');
+
+      if (i >= path.length || path[i] !== directory) {
+        return commonDir;
+      }
+    }
+    commonDir += `${directory}/`; // common directory
+  }
+
+  return commonDir;
 }
 
 
@@ -418,8 +458,21 @@ function getCommonDirectoryPath(/* pathes */) {
  *                         [ 6 ]]
  *
  */
-function getMatrixProduct(/* m1, m2 */) {
-  throw new Error('Not implemented');
+function getMatrixProduct(m1, m2) {
+  const rows1 = m1.length;
+  const cols1 = m1[0].length;
+  const cols2 = m2[0].length;
+
+  const res = new Array(rows1);
+  for (let i = 0; i < rows1; i += 1) {
+    res[i] = new Array(cols2).fill(0);
+    for (let j = 0; j < cols2; j += 1) {
+      for (let k = 0; k < cols1; k += 1) {
+        res[i][j] += m1[i][k] * m2[k][j];
+      }
+    }
+  }
+  return res;
 }
 
 
