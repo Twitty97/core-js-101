@@ -506,8 +506,28 @@ function getMatrixProduct(m1, m2) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function transpose(matrix) {
+  return matrix[0].map((_, i) => matrix.map((row) => row[i]));
+}
+
+function evaluateTicTacToePosition(position) {
+  const rows = position;
+  const columns = transpose(position);
+  const diagonals = [
+    [position[0][0], position[1][1], position[2][2]],
+    [position[0][2], position[1][1], position[2][0]],
+  ];
+
+  const lines = [...rows, ...columns, ...diagonals];
+
+  // eslint-disable-next-line no-restricted-syntax
+  for (const line of lines) {
+    if (line[0] && line[0] === line[1] && line[0] === line[2]) {
+      return line[0];
+    }
+  }
+
+  return undefined;
 }
 
 
